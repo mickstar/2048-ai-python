@@ -1,0 +1,5 @@
+class Move:
+	LEFT_MOVE = 1
+	RIGHT_MOVE = 2
+	UP_MOVE = 3
+	DOWN_MOVE = 4
