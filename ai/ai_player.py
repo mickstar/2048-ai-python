@@ -14,8 +14,6 @@ class AIPlayer ():
 		self.verbose = verbose
 		self.game = GameManager()
 
-		self.startGame()
-
 	def startGame (self):
 		self.game.initialize()
 		playable = True
@@ -23,6 +21,7 @@ class AIPlayer ():
 			if (self.verbose):
 				self.game.outputGame()
 			playable = self.move()
+		return self.game.score
 
 
 	def move (self):

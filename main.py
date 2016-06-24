@@ -55,7 +55,7 @@ def main():
 		hp = HumanPlayer()
 		hp.startGame()
 	elif ("run" in argv):
-		AIRunner()
+		AIRunner(iterations=iterations, verbose=(not silentMode))
 
 
 if __name__ == '__main__':
