@@ -3,6 +3,7 @@
 from sys import argv
 import getopt
 
+from ai.ai_runner import AIRunner
 from game.humanplayer import HumanPlayer
 
 
@@ -53,6 +54,8 @@ def main():
 	if ("play" in argv):
 		hp = HumanPlayer()
 		hp.startGame()
+	elif ("run" in argv):
+		AIRunner()
 
 
 if __name__ == '__main__':

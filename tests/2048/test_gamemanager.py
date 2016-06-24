@@ -30,6 +30,30 @@ class MyTestCase(unittest.TestCase):
 		grid = game.getBoard()
 		self.assertEqual(grid, ((1,2,3,4),(5,6,7,8),(9,10,11,12),(13,14,15,16)))
 
+	def test_isGameTerminated(self):
+		game = GameManager()
+		game.gameboard.getCell(0,0).setValue(2)
+		game.gameboard.getCell(1,0).setValue(4)
+		game.gameboard.getCell(2,0).setValue(8)
+		game.gameboard.getCell(3,0).setValue(16)
+
+		game.gameboard.getCell(0,1).setValue(4)
+		game.gameboard.getCell(1,1).setValue(2)
+		game.gameboard.getCell(2,1).setValue(128)
+		game.gameboard.getCell(3,1).setValue(8)
+
+		game.gameboard.getCell(0,2).setValue(128)
+		game.gameboard.getCell(1,2).setValue(8)
+		game.gameboard.getCell(2,2).setValue(2)
+		game.gameboard.getCell(3,2).setValue(4)
+
+		game.gameboard.getCell(0,3).setValue(256)
+		game.gameboard.getCell(1,3).setValue(2)
+		game.gameboard.getCell(2,3).setValue(16)
+		game.gameboard.getCell(3,3).setValue(2)
+
+		self.assertTrue(game.isGameTerminated())
+
 
 
 if __name__ == '__main__':

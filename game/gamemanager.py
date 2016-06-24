@@ -43,6 +43,9 @@ class GameManager:
 	def makeMove(self, move):
 		assert (move in [Move.LEFT_MOVE, Move.RIGHT_MOVE, Move.UP_MOVE, Move.DOWN_MOVE])
 		status, score_diff = self.gameboard.makeMove(move)
+		if (status == False):
+			return False
+
 		self.score += score_diff
 		self.addRandomTile()
 		if self.isGameTerminated():
