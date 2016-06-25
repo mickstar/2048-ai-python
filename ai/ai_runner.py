@@ -44,3 +44,7 @@ class AIRunner():
 			print("Got score {score}".format(score=score))
 			scores.append(score)
 		print("Highest score was {max_score} from {n} iterations".format(max_score=max(scores), n=iterations))
+		print("Mean score was {avg} over {n} iterations".format(avg=float(sum(scores))/iterations, n=iterations))
+		scores.sort()
+		median = scores[int(iterations/2)]
+		print("Median score was {median}".format(median=median))
