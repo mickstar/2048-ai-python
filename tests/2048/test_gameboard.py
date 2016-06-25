@@ -31,6 +31,36 @@ class MyTestCase(unittest.TestCase):
 
 	def test_makeMove2(self):
 		gb = GameBoard()
+		gb.getCell(0, 0).setValue(2)
+		gb.getCell(1, 0).setValue(2)
+		gb.getCell(2, 0).setValue(2)
+		gb.getCell(3, 0).setValue(2)
+		playable,score_delta = gb.makeMove(Move.LEFT_MOVE)
+		self.assertTrue(playable)
+		self.assertEqual(score_delta, 8)
+		self.assertEqual(gb.getCell(3, 0).getValue(), 0)
+		self.assertEqual(gb.getCell(2, 0).getValue(), 0)
+		self.assertEqual(gb.getCell(1, 0).getValue(), 4)
+		self.assertEqual(gb.getCell(0, 0).getValue(), 4)
+
+	def test_makeMove3(self):
+		gb = GameBoard()
+		gb.getCell(0, 0).setValue(2)
+		gb.getCell(0, 1).setValue(2)
+		gb.getCell(0, 2).setValue(4)
+		gb.getCell(0, 3).setValue(4)
+		playable,score_delta = gb.makeMove(Move.DOWN_MOVE)
+		# gb.printBoard()
+		self.assertTrue(playable)
+		self.assertEqual(score_delta, 12)
+		self.assertEqual(gb.getCell(0, 0).getValue(), 0)
+		self.assertEqual(gb.getCell(0, 1).getValue(), 0)
+		self.assertEqual(gb.getCell(0, 2).getValue(), 4)
+		self.assertEqual(gb.getCell(0, 3).getValue(), 8)
+
+
+	def test_makeMove4(self):
+		gb = GameBoard()
 		gb.getCell(1, 0).setValue(2)
 		gb.getCell(2, 0).setValue(2)
 		playable = gb.makeMove(Move.LEFT_MOVE)

@@ -69,7 +69,7 @@ class GameBoard:
 		score_delta = 0
 
 		for x in x_range:
-			joinedAt = 0
+			joined = []
 			for y in y_range:
 				# first we check to see we are not on an edge cell.
 				if (x + x_delta) in x_range and (y + y_delta) in y_range:
@@ -77,21 +77,34 @@ class GameBoard:
 					adjCell = self.getCell(x + x_delta, y + y_delta)
 
 					# Check to see if we can merge two cells, e.g RIGHT[0,0,2,2] -> [0,0,0,4]
-					if (not curCell.isEmpty()
-						and curCell.getValue() != joinedAt
+					if (curCell not in joined
+						and not curCell.isEmpty()
 						and curCell.getValue() == adjCell.getValue()):
 
-						joinedAt = curCell.getValue()
 						successfullyMoved = True
 						score_delta += 2*curCell.value
 						adjCell.doubleValue()
 						curCell.removeValue()
+						joined = [curCell, adjCell]
 
 					# Check to see if we can move a cell e.g RIGHT[2,0,0,0] -> [0,2,0,0]
 					elif not curCell.isEmpty() and adjCell.isEmpty():
 						successfullyMoved = True
-						adjCell.setValue(curCell.value)
+						adjCell.setValue(curCell.getValue())
 						curCell.removeValue()
+
+
+		for y in y_range:
+			for x in x_range:
+				if (x + x_delta) in x_range and (y + y_delta) in y_range:
+					curCell = self.getCell(x, y)
+					adjCell = self.getCell(x + x_delta, y + y_delta)
+					if (not curCell.isEmpty() and adjCell.isEmpty()):
+						adjCell.setValue(curCell.getValue())
+						curCell.removeValue()
+
+
+
 		return successfullyMoved, score_delta
 
 	def hasMovesAvailable(self):
