@@ -1,4 +1,7 @@
 class Cell:
+	'''This class defines a cell in the 2048 grid.
+	We will define an empty cell with value 0 or Cell.EMPTY'''
+
 	def __init__(self, initialValue=None):
 		if initialValue == None:
 			self.value = Cell.EMPTY

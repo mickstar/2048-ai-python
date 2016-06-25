@@ -5,6 +5,9 @@ from game.move import Move
 
 
 class GameBoard:
+	'''GameBoard defines the 2048 grid that should be a 4x4 square.
+	This class contains 16 cells, and provides methods for permuting the board state in conjunction with
+	2048 rules. The code is designed with an unconcrete size, though this should be changed with caution.'''
 	size = 4
 
 	def __init__(self):
@@ -18,6 +21,7 @@ class GameBoard:
 			print("")  # new line
 
 	def hasEmptyTiles(self):
+		'''Returns whether there exists any empty tiles (=0) in the grid.'''
 		for row in self.grid:
 			for cell in row:
 				if cell.isEmpty():
@@ -25,13 +29,14 @@ class GameBoard:
 
 		return False
 
-	# return cell at the (x,y) coordinates.
-	# grid is structured such that the top left corner is (0,0)
-	# likewise, the bottom right is (3,3)
 	def getCell(self, x, y):
+		'''return cell at the (x,y) coordinates.
+		grid is structured such that the top left corner is (0,0)
+		likewise, the bottom right is (3,3)'''
 		return self.grid[x][y]
 
 	def getRandomlyAvailableCell(self):
+		'''Returns a randomly selected empty cell from the grid.'''
 		emptyCells = []
 		for row in self.grid:
 			for cell in row:
@@ -40,10 +45,10 @@ class GameBoard:
 
 		return random.choice(emptyCells)
 
-	# modifies the grid such in the direction of the move.
-	# Such that Right[0,2,2,0] -> [0,0,0,4]
-	# for each horizontal row in grid
 	def makeMove(self, move):
+		'''modifies the grid such in the direction of the move.
+		Such that Right[0,2,2,0] -> [0,0,0,4]
+		for each horizontal row in grid'''
 		x_delta = 0
 		y_delta = 0
 		n = GameBoard.size
@@ -90,12 +95,16 @@ class GameBoard:
 		return successfullyMoved, score_delta
 
 	def hasMovesAvailable(self):
+		'''Checks to see if any moves are available.'''
 		if (self.hasEmptyTiles()):
 			return True
 		n = len(self.grid)
+		# we iterate over all posible directions, where (0,1) corresponds to DOWN and (-1,0) to LEFT.
 		for (x_delta, y_delta) in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
 			x_range = list(range(n))
 			y_range = list(range(n))
+			# we always want to start from the further most away s.t LEFT[2,2,0,0] starts at index 3.
+			# as such we reverse the range to [3,2,1,0]
 			if x_delta == -1:
 				x_range = reversed(x_range)
 			if y_delta == -1:
